@@ -42,9 +42,9 @@ app.use(cors({
   credentials: true,
 }));
 
-// Increase payload limit for large base64 image strings
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+// Increase payload limit for large base64 image strings (up to 20MB)
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ limit: '20mb', extended: true }));
 
 // Serve static files from the uploads directory
 const __filename = fileURLToPath(import.meta.url);
