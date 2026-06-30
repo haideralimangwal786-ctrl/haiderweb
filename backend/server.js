@@ -22,14 +22,18 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  process.env.FRONTEND_URL, // Set this in Render environment variables
+  // Production Vercel URL
+  'https://haiderweb-7vmc3ywri-haideralimangwal786-ctrls-projects.vercel.app',
+  // Dynamic env variable (set in Render dashboard)
+  process.env.FRONTEND_URL,
 ].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Allow any vercel.app preview deployment for this project
+    if (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
