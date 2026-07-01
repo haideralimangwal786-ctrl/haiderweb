@@ -17,7 +17,7 @@ A premium, highly interactive, and fully responsive personal portfolio built on 
 
 | Public Portfolio | Admin Dashboard |
 |:---:|:---:|
-| ![Portfolio Screenshot](https://via.placeholder.com/600x350.png?text=Portfolio+UI+Screenshot) | ![Admin Screenshot](https://via.placeholder.com/600x350.png?text=Admin+Panel+Screenshot) |
+| ![Portfolio Screenshot](https://image.thum.io/get/width/1200/crop/800/https://haiderweb-7vmc3ywri-haideralimangwal786-ctrls-projects.vercel.app/) | ![Admin Screenshot](https://image.thum.io/get/width/1200/crop/800/https://haiderweb-7vmc3ywri-haideralimangwal786-ctrls-projects.vercel.app/admin) |
 
 ## 🛠️ Technology Stack
 
