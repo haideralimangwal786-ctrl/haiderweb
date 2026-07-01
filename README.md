@@ -11,6 +11,14 @@ A premium, highly interactive, and fully responsive personal portfolio built on 
 - **Inbox & Messaging:** A fully functional contact form that saves messages directly to the database, accessible via the admin dashboard.
 - **Responsive Design:** Carefully crafted layouts ensuring pixel-perfect views across Mobile, Tablet, and Desktop.
 
+## 🖼️ Screenshots
+
+*(Add your screenshots here by dragging and dropping them into the GitHub editor, or replacing the links below!)*
+
+| Public Portfolio | Admin Dashboard |
+|:---:|:---:|
+| ![Portfolio Screenshot](https://via.placeholder.com/600x350.png?text=Portfolio+UI+Screenshot) | ![Admin Screenshot](https://via.placeholder.com/600x350.png?text=Admin+Panel+Screenshot) |
+
 ## 🛠️ Technology Stack
 
 **Frontend:**
