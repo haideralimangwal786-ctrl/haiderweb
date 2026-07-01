@@ -33,7 +33,7 @@ const Projects = () => {
         {/* Projects Grid (Premium UI) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 animate__animated animate__fadeInUp animate__delay-1s">
           {projects.map((project, index) => (
-            <div key={index} className="w-full group relative rounded-3xl bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(79,70,229,0.12)] hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col h-full">
+            <div key={index} className="w-full group relative rounded-3xl bg-white backdrop-blur-2xl border border-slate-200 shadow-[0_4px_20px_rgba(0,0,0,0.10),0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_48px_rgba(79,70,229,0.22),0_4px_16px_rgba(0,0,0,0.10)] hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col h-full">
               
               {/* Product Image Header */}
               <div className="relative w-full h-48 md:h-36 overflow-hidden bg-slate-100 p-3">
