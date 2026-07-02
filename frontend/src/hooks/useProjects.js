@@ -47,31 +47,46 @@ const defaultProjects = [
   }
 ];
 
+let cachedProjects = null;
+let projectsPromise = null;
+
 export const useProjects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState(cachedProjects || []);
+  const [loading, setLoading] = useState(!cachedProjects);
 
   // Fetch all projects from API
   const fetchProjects = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`);
-      if (res.ok) {
-        const data = await res.json();
-        // If database is empty, we can optionally seed it here or just set empty
-        if (data.length === 0) {
-          setProjects(defaultProjects);
-        } else {
-          setProjects(data);
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch projects from backend:', error);
-      // Fallback to local storage if backend is down
-      const saved = localStorage.getItem('portfolio_projects');
-      if (saved) setProjects(JSON.parse(saved));
-    } finally {
+    if (cachedProjects) {
+      setProjects(cachedProjects);
       setLoading(false);
+      return;
     }
+
+    if (!projectsPromise) {
+      projectsPromise = fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch');
+          return res.json();
+        })
+        .then(data => {
+          const finalData = data.length === 0 ? defaultProjects : data;
+          cachedProjects = finalData;
+          return finalData;
+        })
+        .catch(error => {
+          console.error('Failed to fetch projects from backend:', error);
+          const saved = localStorage.getItem('portfolio_projects');
+          const fallback = saved ? JSON.parse(saved) : defaultProjects;
+          projectsPromise = null;
+          return fallback;
+        });
+    }
+
+    const data = await projectsPromise;
+    if (data) {
+      setProjects(data);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -91,7 +106,9 @@ export const useProjects = () => {
       });
       if (res.ok) {
         const newProject = await res.json();
-        setProjects([...projects, newProject]);
+        const updatedList = [...projects, newProject];
+        cachedProjects = updatedList;
+        setProjects(updatedList);
       }
     } catch (error) {
       console.error('Failed to add project', error);
@@ -111,7 +128,9 @@ export const useProjects = () => {
       });
       if (res.ok) {
         const updated = await res.json();
-        setProjects(projects.map(p => p.id === id ? updated : p));
+        const updatedList = projects.map(p => p.id === id ? updated : p);
+        cachedProjects = updatedList;
+        setProjects(updatedList);
       }
     } catch (error) {
       console.error('Failed to update project', error);
@@ -128,7 +147,9 @@ export const useProjects = () => {
         }
       });
       if (res.ok) {
-        setProjects(projects.filter(p => p.id !== id));
+        const updatedList = projects.filter(p => p.id !== id);
+        cachedProjects = updatedList;
+        setProjects(updatedList);
       }
     } catch (error) {
       console.error('Failed to delete project', error);
