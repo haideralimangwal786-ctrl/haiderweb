@@ -85,9 +85,11 @@ const ProjectDetails = () => {
                 <ExternalLink size={20} /> Visit Live Site
               </a>
             )}
-            <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-              <FaGithub size={20} /> View Source Code
-            </a>
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                <FaGithub size={20} /> View Source Code
+              </a>
+            )}
           </div>
         </div>
 

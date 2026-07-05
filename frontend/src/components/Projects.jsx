@@ -76,9 +76,11 @@ const Projects = () => {
                   <Link to={`/project/${project.id}`} className="flex-1 flex items-center justify-center gap-1.5 bg-slate-900 text-white px-4 py-2.5 md:px-3 md:py-2 rounded-lg text-sm md:text-[11px] font-bold shadow-md hover:bg-indigo-600 hover:shadow-[0_0_20px_-5px_rgba(79,70,229,0.5)] transition-all duration-300">
                     Details <ArrowRight size={14} />
                   </Link>
-                  <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 bg-white text-slate-700 border border-slate-200 rounded-lg hover:border-indigo-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300 shadow-sm" title="Source Code">
-                    <FaGithub size={16} />
-                  </a>
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 bg-white text-slate-700 border border-slate-200 rounded-lg hover:border-indigo-600 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-300 shadow-sm" title="Source Code">
+                      <FaGithub size={16} />
+                    </a>
+                  )}
                   {project.liveLink && (
                     <a href={project.liveLink} target="_blank" rel="noreferrer" className="flex items-center justify-center w-10 h-10 md:w-8 md:h-8 bg-white text-emerald-600 border border-emerald-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-all duration-300 shadow-sm" title="Live Site">
                       <ExternalLink size={16} />
