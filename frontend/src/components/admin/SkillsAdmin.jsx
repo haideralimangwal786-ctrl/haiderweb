@@ -118,7 +118,7 @@ const SkillsAdmin = () => {
           </form>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {skillCategories.map(cat => (
             <div key={cat._id} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col relative overflow-hidden group">
                <div className="flex justify-between items-center mb-6 relative z-10">
