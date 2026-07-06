@@ -51,31 +51,40 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <div 
               key={index} 
-              className={`group bg-white/70 backdrop-blur-2xl p-10 lg:p-12 rounded-[3rem] border border-white transition-all duration-500 hover:-translate-y-2 shadow-xl ${category.borderColor} ${category.glowColor}`}
+              className={`group relative bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-3xl p-8 lg:p-10 rounded-[2.5rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 ${category.borderColor} ${category.glowColor} overflow-hidden`}
             >
+              {/* Decorative top gradient line */}
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-50 group-hover:opacity-100 transition-opacity duration-500 ${category.bgGlow || 'from-indigo-400 to-purple-400'}`}></div>
               
-              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-slate-100 pb-8">
-                <div className={`p-5 rounded-[1.5rem] ${category.iconBg} border border-white shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                  <IconRenderer iconName={category.iconName} size={36} />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-10 border-b border-slate-100 pb-8 relative z-10">
+                <div className={`p-4 rounded-2xl ${category.iconBg} border border-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                  <IconRenderer iconName={category.iconName} size={32} />
                 </div>
                 <div>
-                   <h3 className="text-3xl font-black text-slate-900 tracking-tight">{category.title}</h3>
-                   <p className="text-slate-500 font-medium mt-1">Core technologies & frameworks</p>
+                   <h3 className="text-2xl font-black text-slate-900 tracking-tight">{category.title}</h3>
+                   <p className="text-slate-500 text-sm font-semibold mt-1">Core technologies & tools</p>
                 </div>
               </div>
               
-              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 relative z-10">
                 {category.skills.map((skillItem, idx) => (
-                  <div key={idx} className="flex flex-col items-center gap-3 group/skill cursor-pointer">
-                    <div className="w-16 h-16 rounded-[1.25rem] bg-white shadow-md border border-slate-100 flex items-center justify-center group-hover/skill:-translate-y-2 group-hover/skill:shadow-2xl transition-all duration-300 relative overflow-hidden">
-                      {/* Background glow on hover */}
-                      <div className={`absolute inset-0 opacity-0 group-hover/skill:opacity-10 transition-opacity duration-300 ${category.bgGlow}`}></div>
+                  <div key={idx} className="flex items-center gap-3 bg-white/60 hover:bg-white border border-slate-100/50 hover:border-slate-200 p-3 rounded-full shadow-sm hover:shadow-lg transition-all duration-300 group/skill cursor-pointer hover:-translate-y-1">
+                    
+                    {/* Circle Animation Container */}
+                    <div className="relative w-12 h-12 flex items-center justify-center">
+                      {/* Spinning dashed ring */}
+                      <div className="absolute -inset-0.5 rounded-full border-[1.5px] border-dashed border-slate-300 group-hover/skill:border-indigo-500 group-hover/skill:animate-spin transition-colors duration-500" style={{ animationDuration: '3s' }}></div>
                       
-                      <div className="transform group-hover/skill:scale-110 transition-transform duration-300">
-                        <IconRenderer iconName={skillItem.iconName} iconColor={skillItem.iconColor} size={32} />
+                      {/* Inner pulsing glow on hover */}
+                      <div className={`absolute inset-1 rounded-full opacity-0 group-hover/skill:opacity-20 group-hover/skill:animate-pulse transition-all duration-500 ${category.bgGlow}`}></div>
+                      
+                      {/* Inner Icon Circle */}
+                      <div className="relative z-10 w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center shadow-sm group-hover/skill:scale-110 transition-transform duration-300">
+                        <IconRenderer iconName={skillItem.iconName} iconColor={skillItem.iconColor} size={20} />
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-slate-600 group-hover/skill:text-slate-900 transition-colors text-center px-1">
+
+                    <span className="text-sm font-extrabold text-slate-700 group-hover/skill:text-slate-900 transition-colors tracking-tight pr-4">
                       {skillItem.name}
                     </span>
                   </div>
