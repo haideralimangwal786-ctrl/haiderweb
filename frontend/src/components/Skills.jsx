@@ -51,10 +51,16 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <div 
               key={index} 
-              className={`group relative bg-gradient-to-br from-white/90 to-white/50 backdrop-blur-3xl p-8 lg:p-10 rounded-[2.5rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-2 ${category.borderColor} ${category.glowColor} overflow-hidden`}
+              className={`group relative bg-white/40 backdrop-blur-xl p-8 lg:p-10 rounded-[2.5rem] border-[1.5px] border-white/80 shadow-[0_8px_32px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] ${category.borderColor} ${category.glowColor} overflow-hidden isolate`}
             >
+              {/* Premium Glass reflection */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none -z-10"></div>
+              
+              {/* Decorative background glow orb */}
+              <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none -z-10 ${category.bgGlow || 'bg-indigo-500'}`}></div>
+              
               {/* Decorative top gradient line */}
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-50 group-hover:opacity-100 transition-opacity duration-500 ${category.bgGlow || 'from-indigo-400 to-purple-400'}`}></div>
+              <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r opacity-50 group-hover:opacity-100 transition-opacity duration-500 ${category.bgGlow || 'from-indigo-400 to-purple-400'}`}></div>
               
               <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-10 border-b border-slate-100 pb-8 relative z-10">
                 <div className={`p-4 rounded-2xl ${category.iconBg} border border-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
@@ -68,23 +74,23 @@ const Skills = () => {
               
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 relative z-10">
                 {category.skills.map((skillItem, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-white/60 hover:bg-white border border-slate-100/50 hover:border-slate-200 p-3 rounded-full shadow-sm hover:shadow-lg transition-all duration-300 group/skill cursor-pointer hover:-translate-y-1">
+                  <div key={idx} className="flex items-center gap-3 bg-white/50 hover:bg-white/90 backdrop-blur-md border border-white/60 hover:border-white p-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-500 group/skill cursor-pointer hover:-translate-y-1.5">
                     
                     {/* Circle Animation Container */}
                     <div className="relative w-12 h-12 flex items-center justify-center">
-                      {/* Spinning dashed ring */}
-                      <div className="absolute -inset-0.5 rounded-full border-[1.5px] border-dashed border-slate-300 group-hover/skill:border-indigo-500 group-hover/skill:animate-spin transition-colors duration-500" style={{ animationDuration: '3s' }}></div>
+                      {/* Spinning gradient ring on hover */}
+                      <div className="absolute -inset-0.5 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-slate-300 to-transparent group-hover/skill:from-indigo-500 group-hover/skill:via-purple-500 group-hover/skill:to-pink-500 opacity-50 group-hover/skill:opacity-100 group-hover/skill:animate-[spin_3s_linear_infinite] transition-all duration-500 [mask-composite:exclude] [mask-image:linear-gradient(white,white),linear-gradient(white,white)]" style={{ WebkitMaskClip: 'padding-box, border-box' }}></div>
                       
                       {/* Inner pulsing glow on hover */}
-                      <div className={`absolute inset-1 rounded-full opacity-0 group-hover/skill:opacity-20 group-hover/skill:animate-pulse transition-all duration-500 ${category.bgGlow}`}></div>
+                      <div className={`absolute inset-0 rounded-full opacity-0 group-hover/skill:opacity-30 group-hover/skill:animate-pulse transition-all duration-500 blur-md ${category.bgGlow}`}></div>
                       
                       {/* Inner Icon Circle */}
-                      <div className="relative z-10 w-10 h-10 bg-white rounded-full border border-slate-100 flex items-center justify-center shadow-sm group-hover/skill:scale-110 transition-transform duration-300">
+                      <div className="relative z-10 w-11 h-11 bg-white/90 backdrop-blur-xl rounded-full border border-white/80 flex items-center justify-center shadow-sm group-hover/skill:scale-110 transition-transform duration-300 group-hover/skill:shadow-md">
                         <IconRenderer iconName={skillItem.iconName} iconColor={skillItem.iconColor} size={20} />
                       </div>
                     </div>
 
-                    <span className="text-sm font-extrabold text-slate-700 group-hover/skill:text-slate-900 transition-colors tracking-tight pr-4">
+                    <span className="text-[13px] font-black text-slate-700 group-hover/skill:text-slate-900 transition-colors tracking-tight pr-2 line-clamp-1">
                       {skillItem.name}
                     </span>
                   </div>
