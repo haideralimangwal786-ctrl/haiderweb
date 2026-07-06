@@ -47,7 +47,7 @@ const Skills = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-10 animate__animated animate__fadeInUp animate__delay-1s">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 animate__animated animate__fadeInUp animate__delay-1s">
           {skillCategories.map((category, index) => (
             <div 
               key={index} 
@@ -72,7 +72,7 @@ const Skills = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 relative z-10">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 relative z-10">
                 {category.skills.map((skillItem, idx) => (
                   <div key={idx} className="flex items-center gap-3 bg-white/50 hover:bg-white/90 backdrop-blur-md border border-white/60 hover:border-white p-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-500 group/skill cursor-pointer hover:-translate-y-1.5">
                     
