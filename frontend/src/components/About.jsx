@@ -52,7 +52,7 @@ const About = () => {
              <div className="aspect-square rounded-full bg-gradient-to-tr from-indigo-300 to-purple-300 animate-[spin_15s_linear_infinite] absolute inset-0 blur-3xl opacity-40"></div>
              <div className="relative bg-white/40 backdrop-blur-xl border border-white/80 p-4 rounded-[3rem] shadow-2xl transform hover:-translate-y-2 transition-transform duration-500">
                <div className="w-full aspect-square rounded-[2.5rem] shadow-inner overflow-hidden relative flex items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-50 border-4 border-white/60 group/img">
-                  <img src={profile?.profileImage || myImage} alt={profile?.name || "Haider Ali"} className="w-full h-full object-cover object-top group-hover/img:scale-105 transition-transform duration-700" />
+                  <img src={profile?.aboutImage || myImage} alt={profile?.name || "Haider Ali"} className="w-full h-full object-cover object-top group-hover/img:scale-105 transition-transform duration-700" />
                </div>
                
                {/* Floating Badge */}

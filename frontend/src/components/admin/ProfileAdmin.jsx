@@ -175,6 +175,16 @@ const ProfileAdmin = () => {
             <label className="text-sm font-bold text-slate-700">Current Status (e.g. looking for internships)</label>
             <input type="text" name="aboutStatus" value={formData.aboutStatus} onChange={handleChange} className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" required />
           </div>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-slate-700">About Section Image (Upload)</label>
+            <div className="flex items-center gap-4">
+              {formData.aboutImage && (
+                <img src={formData.aboutImage} alt="About Illustration" className="w-12 h-12 rounded-xl object-cover border border-slate-200" />
+              )}
+              <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'aboutImage')} className="flex-1 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-all" />
+            </div>
+            <p className="text-xs text-slate-500 italic">Current: {formData.aboutImage || "Default Image"}</p>
+          </div>
         </section>
 
         {/* Contact/Social Section */}

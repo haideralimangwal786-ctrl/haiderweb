@@ -20,6 +20,7 @@ const profileSchema = new mongoose.Schema({
   linkedin: { type: String, default: 'https://www.linkedin.com/in/haider-ali-8a008325a/' },
   resumeLink: { type: String, default: '/Haider_Ali_Resume.pdf' },
   profileImage: { type: String, default: '' },
+  aboutImage: { type: String, default: '' },
   customLinks: [{
     platform: { type: String, required: true },
     url: { type: String, required: true },
