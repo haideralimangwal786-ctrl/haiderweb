@@ -73,5 +73,23 @@ export const useMessages = () => {
     }
   };
 
-  return { messages, sendMessage, deleteMessage };
+  const replyToMessage = async (id, replyText) => {
+    try {
+      const token = sessionStorage.getItem('adminToken');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/messages/${id}/reply`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ replyText })
+      });
+      return res.ok;
+    } catch (error) {
+      console.error('Failed to reply to message', error);
+      return false;
+    }
+  };
+
+  return { messages, sendMessage, deleteMessage, replyToMessage };
 };
