@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { socket } from '../services/socket';
 
 export const useSkillCategories = () => {
   const [skillCategories, setSkillCategories] = useState([]);
@@ -17,6 +18,16 @@ export const useSkillCategories = () => {
 
   useEffect(() => {
     fetchSkillCategories();
+
+    const handleSkillsUpdate = () => {
+      fetchSkillCategories();
+    };
+
+    socket.on('skills_updated', handleSkillsUpdate);
+
+    return () => {
+      socket.off('skills_updated', handleSkillsUpdate);
+    };
   }, []);
 
   const addSkillCategory = async (category) => {

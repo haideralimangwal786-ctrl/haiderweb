@@ -10,6 +10,8 @@ router.post('/', async (req, res) => {
   try {
     const message = new Message(req.body);
     const savedMessage = await message.save();
+    const io = req.app.get('io');
+    if (io) io.emit('messages_updated');
     res.status(201).json(savedMessage);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -35,6 +37,8 @@ router.delete('/:id', protect, async (req, res) => {
   try {
     const deletedMessage = await Message.findByIdAndDelete(req.params.id);
     if (!deletedMessage) return res.status(404).json({ message: 'Message not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('messages_updated');
     res.json({ message: 'Message deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });

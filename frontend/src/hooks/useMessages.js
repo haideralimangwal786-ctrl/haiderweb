@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { socket } from '../services/socket';
 
 export const useMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -25,6 +26,18 @@ export const useMessages = () => {
     if (sessionStorage.getItem('adminToken')) {
       fetchMessages();
     }
+
+    const handleMessagesUpdate = () => {
+      if (sessionStorage.getItem('adminToken')) {
+        fetchMessages();
+      }
+    };
+
+    socket.on('messages_updated', handleMessagesUpdate);
+
+    return () => {
+      socket.off('messages_updated', handleMessagesUpdate);
+    };
   }, []);
 
   const sendMessage = async (messageData) => {

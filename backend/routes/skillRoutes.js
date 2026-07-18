@@ -21,6 +21,8 @@ router.post('/', protect, async (req, res) => {
   try {
     const category = new SkillCategory(req.body);
     const savedCategory = await category.save();
+    const io = req.app.get('io');
+    if (io) io.emit('skills_updated');
     res.status(201).json(savedCategory);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -37,6 +39,8 @@ router.put('/:id', protect, async (req, res) => {
       { new: true }
     );
     if (!updatedCategory) return res.status(404).json({ message: 'Skill Category not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('skills_updated');
     res.json(updatedCategory);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -49,6 +53,8 @@ router.delete('/:id', protect, async (req, res) => {
   try {
     const deletedCategory = await SkillCategory.findByIdAndDelete(req.params.id);
     if (!deletedCategory) return res.status(404).json({ message: 'Skill Category not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('skills_updated');
     res.json({ message: 'Skill Category deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });

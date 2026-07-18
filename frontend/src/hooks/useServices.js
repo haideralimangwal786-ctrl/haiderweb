@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { socket } from '../services/socket';
 
 export const useServices = () => {
   const [services, setServices] = useState([]);
@@ -20,6 +21,16 @@ export const useServices = () => {
 
   useEffect(() => {
     fetchServices();
+
+    const handleServicesUpdate = () => {
+      fetchServices();
+    };
+
+    socket.on('services_updated', handleServicesUpdate);
+
+    return () => {
+      socket.off('services_updated', handleServicesUpdate);
+    };
   }, []);
 
   const addService = async (service) => {

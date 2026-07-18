@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { socket } from '../services/socket';
 
 const defaultProjects = [
   {
@@ -55,14 +56,14 @@ export const useProjects = () => {
   const [loading, setLoading] = useState(!cachedProjects);
 
   // Fetch all projects from API
-  const fetchProjects = async () => {
-    if (cachedProjects) {
+  const fetchProjects = async (force = false) => {
+    if (cachedProjects && !force) {
       setProjects(cachedProjects);
       setLoading(false);
       return;
     }
 
-    if (!projectsPromise) {
+    if (!projectsPromise || force) {
       projectsPromise = fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch');
@@ -91,6 +92,18 @@ export const useProjects = () => {
 
   useEffect(() => {
     fetchProjects();
+
+    const handleProjectsUpdate = () => {
+      cachedProjects = null;
+      projectsPromise = null;
+      fetchProjects(true);
+    };
+
+    socket.on('projects_updated', handleProjectsUpdate);
+
+    return () => {
+      socket.off('projects_updated', handleProjectsUpdate);
+    };
   }, []);
 
   const addProject = async (project) => {

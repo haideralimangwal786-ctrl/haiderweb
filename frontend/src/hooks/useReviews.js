@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { socket } from '../services/socket';
 
 export const useReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -19,6 +20,16 @@ export const useReviews = () => {
 
   useEffect(() => {
     fetchReviews();
+
+    const handleReviewsUpdate = () => {
+      fetchReviews();
+    };
+
+    socket.on('reviews_updated', handleReviewsUpdate);
+
+    return () => {
+      socket.off('reviews_updated', handleReviewsUpdate);
+    };
   }, []);
 
   const addReview = async (review) => {

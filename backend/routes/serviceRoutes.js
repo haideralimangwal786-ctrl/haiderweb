@@ -21,6 +21,8 @@ router.post('/', protect, async (req, res) => {
   try {
     const newService = new Service(req.body);
     const savedService = await newService.save();
+    const io = req.app.get('io');
+    if (io) io.emit('services_updated');
     res.status(201).json(savedService);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -37,6 +39,8 @@ router.put('/:id', protect, async (req, res) => {
       { new: true }
     );
     if (!updatedService) return res.status(404).json({ message: 'Service not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('services_updated');
     res.json(updatedService);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -49,6 +53,8 @@ router.delete('/:id', protect, async (req, res) => {
   try {
     const deletedService = await Service.findByIdAndDelete(req.params.id);
     if (!deletedService) return res.status(404).json({ message: 'Service not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('services_updated');
     res.json({ message: 'Service deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });

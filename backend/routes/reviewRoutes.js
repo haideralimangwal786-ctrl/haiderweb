@@ -21,6 +21,8 @@ router.post('/', protect, async (req, res) => {
   try {
     const newReview = new Review(req.body);
     const savedReview = await newReview.save();
+    const io = req.app.get('io');
+    if (io) io.emit('reviews_updated');
     res.status(201).json(savedReview);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -37,6 +39,8 @@ router.put('/:id', protect, async (req, res) => {
       { new: true }
     );
     if (!updatedReview) return res.status(404).json({ message: 'Review not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('reviews_updated');
     res.json(updatedReview);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -49,6 +53,8 @@ router.delete('/:id', protect, async (req, res) => {
   try {
     const deletedReview = await Review.findOneAndDelete({ id: req.params.id });
     if (!deletedReview) return res.status(404).json({ message: 'Review not found' });
+    const io = req.app.get('io');
+    if (io) io.emit('reviews_updated');
     res.json({ message: 'Review deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
