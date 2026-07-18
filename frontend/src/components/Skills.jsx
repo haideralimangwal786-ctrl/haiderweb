@@ -72,25 +72,25 @@ const Skills = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 relative z-10">
+              <div className="grid grid-cols-2 gap-3 relative z-10">
                 {category.skills.map((skillItem, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-white/50 hover:bg-white/90 backdrop-blur-md border border-white/60 hover:border-white p-3 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-500 group/skill cursor-pointer hover:-translate-y-1.5">
+                  <div key={idx} className="flex items-center gap-2.5 bg-white/50 hover:bg-white/90 backdrop-blur-md border border-white/60 hover:border-white p-2.5 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-500 group/skill cursor-pointer hover:-translate-y-1 shrink-0">
                     
                     {/* Circle Animation Container */}
-                    <div className="relative w-12 h-12 flex items-center justify-center">
+                    <div className="relative w-9 h-9 flex items-center justify-center shrink-0">
                       {/* Spinning gradient ring on hover */}
-                      <div className="absolute -inset-0.5 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-slate-300 to-transparent group-hover/skill:from-indigo-500 group-hover/skill:via-purple-500 group-hover/skill:to-pink-500 opacity-50 group-hover/skill:opacity-100 group-hover/skill:animate-[spin_3s_linear_infinite] transition-all duration-500 [mask-composite:exclude] [mask-image:linear-gradient(white,white),linear-gradient(white,white)]" style={{ WebkitMaskClip: 'padding-box, border-box' }}></div>
+                      <div className="absolute -inset-0.5 rounded-full border border-transparent bg-gradient-to-r from-transparent via-slate-300 to-transparent group-hover/skill:from-indigo-500 group-hover/skill:via-purple-500 group-hover/skill:to-pink-500 opacity-50 group-hover/skill:opacity-100 group-hover/skill:animate-[spin_3s_linear_infinite] transition-all duration-500 [mask-composite:exclude] [mask-image:linear-gradient(white,white),linear-gradient(white,white)]" style={{ WebkitMaskClip: 'padding-box, border-box' }}></div>
                       
                       {/* Inner pulsing glow on hover */}
                       <div className={`absolute inset-0 rounded-full opacity-0 group-hover/skill:opacity-30 group-hover/skill:animate-pulse transition-all duration-500 blur-md ${category.bgGlow}`}></div>
                       
                       {/* Inner Icon Circle */}
-                      <div className="relative z-10 w-11 h-11 bg-white/90 backdrop-blur-xl rounded-full border border-white/80 flex items-center justify-center shadow-sm group-hover/skill:scale-110 transition-transform duration-300 group-hover/skill:shadow-md">
-                        <IconRenderer iconName={skillItem.iconName} iconColor={skillItem.iconColor} size={20} />
+                      <div className="relative z-10 w-8 h-8 bg-white/90 backdrop-blur-xl rounded-full border border-white/80 flex items-center justify-center shadow-sm group-hover/skill:scale-110 transition-transform duration-300 group-hover/skill:shadow-md">
+                        <IconRenderer iconName={skillItem.iconName} iconColor={skillItem.iconColor} size={15} />
                       </div>
                     </div>
 
-                    <span className="text-[13px] font-black text-slate-700 group-hover/skill:text-slate-900 transition-colors tracking-tight pr-2 line-clamp-1">
+                    <span className="text-[13px] font-black text-slate-700 group-hover/skill:text-slate-900 transition-colors tracking-tight line-clamp-1 pr-1">
                       {skillItem.name}
                     </span>
                   </div>
