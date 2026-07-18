@@ -9,7 +9,7 @@ import { useProfile } from "../hooks/useProfile";
 import * as LucideIcons from "lucide-react";
 
 const Home = () => {
-  const { profile } = useProfile();
+  const { profile, loading } = useProfile();
   // Resume download is handled by the <a> tag below
 
   useEffect(() => {
@@ -103,17 +103,17 @@ const Home = () => {
               <div className="flex items-center gap-4 ml-0 sm:ml-2">
                 {profile?.github && (
                   <a href={profile.github} target="_blank" rel="noreferrer" className="p-3.5 bg-white/80 backdrop-blur-md border-2 border-slate-200 text-slate-700 rounded-2xl hover:border-indigo-500 hover:text-indigo-600 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-                    <FaGithub size={22} />
+                     <FaGithub size={22} />
                   </a>
                 )}
                 {profile?.linkedin && (
                   <a href={profile.linkedin} target="_blank" rel="noreferrer" className="p-3.5 bg-white/80 backdrop-blur-md border-2 border-slate-200 text-slate-700 rounded-2xl hover:border-indigo-500 hover:text-indigo-600 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-                    <FaLinkedin size={22} />
+                     <FaLinkedin size={22} />
                   </a>
                 )}
                 {profile?.whatsapp && (
                   <a href={`https://wa.me/${profile.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" className="p-3.5 bg-white/80 backdrop-blur-md border-2 border-slate-200 text-slate-700 rounded-2xl hover:border-emerald-500 hover:text-emerald-500 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-                    <FaWhatsapp size={22} />
+                     <FaWhatsapp size={22} />
                   </a>
                 )}
                 
@@ -138,11 +138,17 @@ const Home = () => {
               
               {/* Image Container */}
               <div className="relative z-10 w-72 h-72 md:w-[420px] md:h-[420px] rounded-full p-2 bg-gradient-to-tr from-indigo-100 via-white to-purple-100 shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500">
-                <img 
-                  src={profile?.profileImage || heroImg} 
-                  alt={profile?.name || "Haider Ali"} 
-                  className="w-full h-full object-cover rounded-full border-4 border-white"
-                />
+                {loading ? (
+                  <div className="w-full h-full rounded-full bg-slate-200 animate-pulse flex items-center justify-center border-4 border-white">
+                    <LucideIcons.User className="text-slate-400/60" size={80} />
+                  </div>
+                ) : (
+                  <img 
+                    src={profile?.profileImage || heroImg} 
+                    alt={profile?.name || "Haider Ali"} 
+                    className="w-full h-full object-cover rounded-full border-4 border-white animate__animated animate__fadeIn"
+                  />
+                )}
               </div>
               
               {/* Floating Element 1 (Top Right) */}
