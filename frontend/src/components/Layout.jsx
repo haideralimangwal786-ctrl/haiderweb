@@ -87,15 +87,15 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile Menu Sidebar (Drawer) */}
-      <div className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${isOpen ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}>
+      <div className="md:hidden">
         {/* Backdrop overlay */}
         <div 
           onClick={() => setIsOpen(false)}
-          className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+          className={`fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 transition-all duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}
         />
         
         {/* Sidebar container */}
-        <div className={`absolute top-0 right-0 h-full w-72 bg-white shadow-2xl p-6 flex flex-col gap-6 transform transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className={`fixed top-0 right-0 h-screen w-72 bg-white shadow-2xl p-6 flex flex-col gap-6 z-50 transform transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
           {/* Header inside sidebar */}
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <Logo size="sm" showTagline={false} />
