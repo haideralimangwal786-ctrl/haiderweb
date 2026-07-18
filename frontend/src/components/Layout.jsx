@@ -86,27 +86,48 @@ export const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white border-t border-slate-100 shadow-xl py-6 px-6 flex flex-col gap-6 animate__animated animate__fadeInDown animate__faster z-40">
-          <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><Home size={20}/> Home</Link>
-          <Link to="/about" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><User size={20}/> About</Link>
-          <Link to="/skills" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><Code size={20}/> Skills</Link>
-          <Link to="/services" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><Briefcase size={20}/> Services</Link>
-          <Link to="/projects" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><FolderOpen size={20}/> Projects</Link>
-          <Link to="/testimonials" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><Sparkles size={20}/> Reviews</Link>
-          <Link to="/contact" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-lg hover:text-indigo-600 transition-colors"><Mail size={20}/> Contact</Link>
+      {/* Mobile Menu Sidebar (Drawer) */}
+      <div className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${isOpen ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}>
+        {/* Backdrop overlay */}
+        <div 
+          onClick={() => setIsOpen(false)}
+          className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+        />
+        
+        {/* Sidebar container */}
+        <div className={`absolute top-0 right-0 h-full w-72 bg-white shadow-2xl p-6 flex flex-col gap-6 transform transition-transform duration-300 ease-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+          {/* Header inside sidebar */}
+          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <Logo size="sm" showTagline={false} />
+            <button onClick={() => setIsOpen(false)} className="text-slate-600 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <FaTimes size={20} />
+            </button>
+          </div>
           
-          <Link 
-            to="/contact"
-            onClick={() => setIsOpen(false)}
-            className="mt-2 inline-flex justify-center items-center gap-2 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-md transition-all duration-300"
-          >
-            Hire Me
-            <Sparkles size={16} className="text-pink-300" />
-          </Link>
+          {/* Navigation links */}
+          <div className="flex flex-col gap-3 overflow-y-auto flex-grow">
+            <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><Home size={18}/> Home</Link>
+            <Link to="/about" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><User size={18}/> About</Link>
+            <Link to="/skills" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><Code size={18}/> Skills</Link>
+            <Link to="/services" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><Briefcase size={18}/> Services</Link>
+            <Link to="/projects" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><FolderOpen size={18}/> Projects</Link>
+            <Link to="/testimonials" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><Sparkles size={18}/> Reviews</Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-slate-600 font-black text-base hover:text-indigo-600 transition-colors py-2 px-3 rounded-xl hover:bg-slate-50"><Mail size={18}/> Contact</Link>
+          </div>
+          
+          {/* CTA Footer in Sidebar */}
+          <div className="pt-6 border-t border-slate-100">
+            <Link 
+              to="/contact"
+              onClick={() => setIsOpen(false)}
+              className="w-full inline-flex justify-center items-center gap-2 px-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-md transition-all duration-300"
+            >
+              Hire Me
+              <Sparkles size={16} className="text-pink-300" />
+            </Link>
+          </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

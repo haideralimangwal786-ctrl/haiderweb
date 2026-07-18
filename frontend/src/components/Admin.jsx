@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, ArrowRight, LayoutDashboard, Wrench, Settings, LogOut, User, Zap, MessageSquare } from 'lucide-react';
+import { Lock, ArrowRight, LayoutDashboard, Wrench, Settings, LogOut, User, Zap, MessageSquare, Star, Menu, X } from 'lucide-react';
 import "animate.css";
 import ProjectsAdmin from './admin/ProjectsAdmin';
 import ServicesAdmin from './admin/ServicesAdmin';
@@ -8,7 +8,6 @@ import ProfileAdmin from './admin/ProfileAdmin';
 import SkillsAdmin from './admin/SkillsAdmin';
 import MessagesAdmin from './admin/MessagesAdmin';
 import ReviewsAdmin from './admin/ReviewsAdmin';
-import { Star } from 'lucide-react';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!sessionStorage.getItem('adminToken'));
@@ -18,6 +17,7 @@ const Admin = () => {
   const [loading, setLoading] = useState(false);
   
   const [activeTab, setActiveTab] = useState('profile'); // 'profile', 'projects', 'services', 'skills', 'messages', 'settings'
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -95,9 +95,117 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
-      {/* Sidebar Navigation */}
-      <div className="w-full md:w-64 bg-white border-r border-slate-200 p-6 flex flex-col shadow-sm">
+    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row relative">
+      {/* Mobile Top Bar */}
+      <div className="w-full bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between md:hidden shadow-sm sticky top-0 z-40">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setIsSidebarOpen(true)} 
+            className="p-2 hover:bg-slate-50 rounded-xl transition-colors text-slate-700 hover:text-indigo-600"
+          >
+            <Menu size={24} />
+          </button>
+          <div>
+            <span className="font-black text-slate-900 text-lg">CMS Admin</span>
+            <span className="text-[10px] block font-bold text-indigo-600 uppercase tracking-widest leading-none mt-0.5">{activeTab}</span>
+          </div>
+        </div>
+        <button 
+          onClick={handleLogout} 
+          className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </button>
+      </div>
+
+      {/* Mobile Sidebar Drawer */}
+      <div className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${isSidebarOpen ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}>
+        {/* Backdrop overlay */}
+        <div 
+          onClick={() => setIsSidebarOpen(false)}
+          className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ${isSidebarOpen ? "opacity-100" : "opacity-0"}`}
+        />
+        
+        {/* Drawer Container */}
+        <div className={`absolute top-0 left-0 h-full w-64 bg-white shadow-2xl p-6 flex flex-col gap-6 transform transition-transform duration-300 ease-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div>
+              <h1 className="text-xl font-black text-slate-900">CMS Admin</h1>
+              <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mt-0.5">Dashboard</p>
+            </div>
+            <button 
+              onClick={() => setIsSidebarOpen(false)} 
+              className="text-slate-600 hover:text-indigo-600 p-2 rounded-xl hover:bg-slate-50 transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+          
+          <div className="flex flex-col gap-1.5 flex-grow overflow-y-auto">
+            <button 
+              onClick={() => { setActiveTab('profile'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'profile' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <User size={18} /> CMS Profile
+            </button>
+            
+            <button 
+              onClick={() => { setActiveTab('projects'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'projects' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <LayoutDashboard size={18} /> Projects
+            </button>
+            
+            <button 
+              onClick={() => { setActiveTab('services'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'services' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <Wrench size={18} /> Services
+            </button>
+
+            <button 
+              onClick={() => { setActiveTab('skills'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'skills' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <Zap size={18} /> Skills
+            </button>
+
+            <button 
+              onClick={() => { setActiveTab('messages'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'messages' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <MessageSquare size={18} /> Inbox Messages
+            </button>
+
+            <button 
+              onClick={() => { setActiveTab('reviews'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'reviews' ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <Star size={18} /> Client Reviews
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-2 pt-6 border-t border-slate-100 mt-auto">
+            <button 
+              onClick={() => { setActiveTab('settings'); setIsSidebarOpen(false); }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === 'settings' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}
+            >
+              <Settings size={18} /> Profile Settings
+            </button>
+            
+            <button 
+              onClick={() => { handleLogout(); setIsSidebarOpen(false); }}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-red-500 hover:bg-red-50 transition-all mt-2"
+            >
+              <LogOut size={18} /> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Sidebar Navigation */}
+      <div className="hidden md:flex w-64 bg-white border-r border-slate-200 p-6 flex-col shadow-sm sticky top-0 h-screen">
         <div className="mb-8 px-4">
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">CMS Admin</h1>
           <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mt-1">Dashboard</p>
@@ -165,7 +273,7 @@ const Admin = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-6 md:p-12 overflow-y-auto h-screen">
+      <div className="flex-1 p-6 md:p-12 overflow-y-auto h-[calc(100vh-73px)] md:h-screen">
         <div className="max-w-6xl mx-auto">
           {activeTab === 'profile' && <ProfileAdmin />}
           {activeTab === 'projects' && <ProjectsAdmin />}
